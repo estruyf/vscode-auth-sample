@@ -129,7 +129,6 @@ export class Auth0AuthenticationProvider implements AuthenticationProvider, Disp
 
       this._pendingStates.push(stateId);
 
-      const scopes = ["https://graph.microsoft.com/User.Read"];
       const scopeString = scopes.join(' ');
 
       if (!scopes.includes('openid')) {
@@ -148,7 +147,7 @@ export class Auth0AuthenticationProvider implements AuthenticationProvider, Disp
         ['redirect_uri', this.redirectUri],
         ['state', stateId],
         ['scope', scopes.join(' ')],
-        ['prompt', "consent"]
+        ['prompt', "login"]
       ]);
       const uri = Uri.parse(`https://${AUTH0_DOMAIN}/authorize?${searchParams.toString()}`);
       await env.openExternal(uri);

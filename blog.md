@@ -276,3 +276,10 @@ export class Auth0AuthenticationProvider implements AuthenticationProvider, Disp
   }
 }
 ```
+
+```typescript
+const session = await vscode.authentication.getSession("auth0", [], { createIfNone: false });
+if (session) {
+  vscode.window.showInformationMessage(`Welcome back ${session.account.label}`)
+}
+```
