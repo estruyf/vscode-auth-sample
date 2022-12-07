@@ -5,6 +5,13 @@ import * as vscode from 'vscode';
 export async function activate(context: vscode.ExtensionContext) {
 	const subscriptions = context.subscriptions;
 
+	subscriptions.push(
+		vscode.commands.registerCommand('vscode-auth0-authprovider.signIn', async () => {
+			const session = await vscode.authentication.getSession("auth0", [], { createIfNone: true });
+			console.log(session);
+		})
+	)
+
 	// subscriptions.push(
 	// 	new AzureADAuthenticationProvider(context)
 	// );
@@ -33,9 +40,9 @@ export async function activate(context: vscode.ExtensionContext) {
 }
 
 const getAuth0Session = async () => {
-	const session = await vscode.authentication.getSession("auth0", [], { createIfNone: false });
+	const session = await vscode.authentication.getSession("auth0", ['profile'], { createIfNone: false });
 	if (session) {
-		vscode.window.showInformationMessage(`Welcome back ${session.account.label}`)
+		vscode.window.showInformationMessage(`Welcome back ${session.account.label}`);
 	}
 }
 
